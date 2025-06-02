@@ -3,6 +3,7 @@ import Login from './LogIn';
 import ProtectedRoute from './ProtectedRoute';
 import Home from './Home';
 import { SavedBooksProvider } from '../context/SavedBooksContext';
+import Library from './LIbrary';
 
 const router = createBrowserRouter([
   { path: '/login', element: <Login /> },
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
         index: true,
         element: <Home />,
       },
+      { path: 'library', element: <Library /> },
     ],
   },
 ]);

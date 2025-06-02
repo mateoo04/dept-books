@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from 'react-router-dom';
+import { Link, Navigate, Outlet } from 'react-router-dom';
 
 export default function ProtectedRoute() {
   if (
@@ -10,6 +10,11 @@ export default function ProtectedRoute() {
 
   return (
     <>
+      <header>
+        <h1>Books</h1>
+        <Link to={'/'}>Home</Link>
+        <Link to={'/library'}>Library</Link>
+      </header>
       <Outlet />
     </>
   );
