@@ -12,7 +12,7 @@ export default function Login() {
     event.preventDefault();
 
     try {
-      const response = await fetch('/api/login', {
+      const response = await fetch(import.meta.env.VITE_API_URL + '/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -20,23 +20,23 @@ export default function Login() {
         body: JSON.stringify({ email, password }),
       });
 
-      if (response.status === 401)
+      if (response.status === 401) {
         setFailureMessage('Invalid credentials entered');
-      else {
+      } else {
         setFailureMessage('');
 
         const json = await response.json();
 
         const payload = json.data.token.split('.')[1];
-        const decoded = atob(payload);
+        const parsed = JSON.parse(atob(payload));
 
         localStorage.setItem('token', json.data.token);
-        localStorage.setItem('token_exp', decoded.exp);
+        localStorage.setItem('token_exp', parsed.exp);
 
         navigate('/');
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setFailureMessage('Failed to log in');
     }
   };
