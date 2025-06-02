@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import bookmarkImg from '../assets/bookmark.svg';
 import bookmarkFillImg from '../assets/bookmark-fill.svg';
+import { useSavedBooks } from '../context/SavedBooksContext';
 
 export default function Home() {
   const navigate = useNavigate();
+  const { saveBook, removeBook, isBookSaved } = useSavedBooks();
 
   const [fetchedBooks, setFetchedBooks] = useState();
 
@@ -41,12 +43,18 @@ export default function Home() {
       {fetchedBooks?.length
         ? fetchedBooks.map((book) => {
             return (
-              <div>
+              <div key={book.title}>
                 <p>{book.title}</p>
                 <p>{book.author}</p>
-                <button>
-                  <img src={bookmarkImg} alt='' />
-                </button>
+                {isBookSaved(book) ? (
+                  <button onClick={() => removeBook(book)}>
+                    <img src={bookmarkFillImg} alt='' />
+                  </button>
+                ) : (
+                  <button onClick={() => saveBook(book)}>
+                    <img src={bookmarkImg} alt='' />
+                  </button>
+                )}
               </div>
             );
           })

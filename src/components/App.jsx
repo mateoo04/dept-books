@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from './LogIn';
 import ProtectedRoute from './ProtectedRoute';
 import Home from './Home';
+import { SavedBooksProvider } from '../context/SavedBooksContext';
 
 const router = createBrowserRouter([
   { path: '/login', element: <Login /> },
@@ -18,7 +19,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <SavedBooksProvider>
+      <RouterProvider router={router} />
+    </SavedBooksProvider>
+  );
 }
 
 export default App;
