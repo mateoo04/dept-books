@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+html,
+body,
+#root,
+main {
+  min-height: 100%;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+p,
+h1 {
+  margin: 0 !important;
+}
+
+body {
+  margin: 0;
+}
+
+header {
+  margin-top: 10px;
+}
+
+main {
+  margin-top: 20px;
+}
+
+h1 {
+  text-transform: uppercase;
+}
+
+.book {
+  background-color: #f9f9f9;
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 0;
+  border-radius: 26px;
+  padding: 4px 26px;
+}
+
+@media (max-width: 700px) {
+  body > * {
+    margin: 0 5%;
+  }
+}
+
+@media (min-width: 700px) {
+  body > * {
+    margin: 0 10%;
+  }
+
+  .book {
+    margin: 8px 20px;
+  }
+}
+
+.book-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.book-title {
+  font-weight: 600;
+}
+
+button {
+  border: none !important;
+  padding: 0 !important;
+}
+
+button img:hover {
+  opacity: 0.75;
+}
+
+.link:hover {
+  opacity: 0.85;
+}

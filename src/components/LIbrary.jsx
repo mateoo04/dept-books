@@ -9,10 +9,12 @@ export default function Library() {
       {savedBooks?.length
         ? savedBooks.map((book) => {
             return (
-              <div key={book.title}>
-                <p>{book.title}</p>
-                <p>{book.author}</p>
-                <button onClick={() => removeBook(book)}>
+              <div key={book.title} className='book'>
+                <div className='book-details'>
+                  <p className='book-title'>{book.title}</p>
+                  <p>{book.author}</p>
+                </div>
+                <button className='btn' onClick={() => removeBook(book)}>
                   <img src={bookmarkFillImg} alt='' />
                 </button>
               </div>

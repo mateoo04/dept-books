@@ -43,15 +43,17 @@ export default function Home() {
       {fetchedBooks?.length
         ? fetchedBooks.map((book) => {
             return (
-              <div key={book.title}>
-                <p>{book.title}</p>
-                <p>{book.author}</p>
+              <div key={book.title} className='book'>
+                <div className='book-details'>
+                  <p className='book-title'>{book.title}</p>
+                  <p>{book.author}</p>
+                </div>
                 {isBookSaved(book) ? (
-                  <button onClick={() => removeBook(book)}>
+                  <button className='btn' onClick={() => removeBook(book)}>
                     <img src={bookmarkFillImg} alt='' />
                   </button>
                 ) : (
-                  <button onClick={() => saveBook(book)}>
+                  <button className='btn' onClick={() => saveBook(book)}>
                     <img src={bookmarkImg} alt='' />
                   </button>
                 )}
