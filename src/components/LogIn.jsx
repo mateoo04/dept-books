@@ -1,8 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import moonImg from '../assets/moon-fill.svg';
+import sunImg from '../assets/sun-fill.svg';
+import { useTheme } from '../context/ThemeContext';
 
 export default function Login() {
   const navigate = useNavigate();
+
+  const { theme, toggleTheme } = useTheme();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -21,7 +26,7 @@ export default function Login() {
       });
 
       if (response.status === 401) {
-        setFailureMessage('Invalid credentials entered');
+        setFailureMessage('Invalid email or password.');
       } else {
         setFailureMessage('');
 
@@ -35,16 +40,22 @@ export default function Login() {
 
         navigate('/');
       }
-    } catch (err) {
-      console.error(err);
-      setFailureMessage('Incorrect email or password');
+    } catch {
+      setFailureMessage('Server error. Please try again later.');
     }
   };
 
   return (
     <main>
-      <header>
-        <h1 className='login-h1 text-center'>Bookly</h1>
+      <header className='d-flex justify-content-between align-items-center mt-2 p-1'>
+        <h1>Bookly</h1>
+        <button className='btn p-0' onClick={toggleTheme}>
+          {theme === 'light' ? (
+            <img src={sunImg} alt='' />
+          ) : (
+            <img src={moonImg} alt='' />
+          )}
+        </button>
       </header>
       <p className='pt-4 text-center'>
         Discover random books, save your favorites and build your personal
@@ -84,7 +95,7 @@ export default function Login() {
         <input
           type='submit'
           value={'Log in'}
-          className='btn bg-primary text-white rounded-5 ps-4 pe-4'
+          className='btn rounded-5 mt-2 ps-4 pe-4'
         />
       </form>
     </main>

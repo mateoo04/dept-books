@@ -6,15 +6,25 @@ import {
   useNavigate,
 } from 'react-router-dom';
 import logOutImg from '../assets/log-out.svg';
+import logOutLightImg from '../assets/log-out-light.svg';
+import moonImg from '../assets/moon-fill.svg';
+import sunImg from '../assets/sun-fill.svg';
+import { useTheme } from '../context/ThemeContext';
 
 export default function ProtectedRoute() {
+  const { theme, toggleTheme } = useTheme();
+
   const location = useLocation().pathname;
   const navigate = useNavigate();
 
   if (
     !localStorage.getItem('token') ||
+    !localStorage.getItem('token_exp') ||
     Math.floor(Date.now() / 1000) > localStorage.getItem('token_exp')
   ) {
+    localStorage.removeItem('token');
+    localStorage.removeItem('token_exp');
+    localStorage.removeItem('savedBooks');
     return <Navigate to={'/login'} replace />;
   }
 
@@ -53,12 +63,21 @@ export default function ProtectedRoute() {
                   'Are you sure you want to log out? Your saved books will be cleared.'
                 )
               ) {
-                localStorage.clear();
+                localStorage.removeItem('token');
+                localStorage.removeItem('token_exp');
+                localStorage.removeItem('savedBooks');
                 navigate('/login');
               }
             }}
           >
-            <img src={logOutImg} alt='' />
+            <img src={theme === 'dark' ? logOutLightImg : logOutImg} alt='' />
+          </button>
+          <button className='btn p-0' onClick={toggleTheme}>
+            {theme === 'light' ? (
+              <img src={sunImg} alt='' />
+            ) : (
+              <img src={moonImg} alt='' />
+            )}
           </button>
         </nav>
       </header>

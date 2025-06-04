@@ -11,11 +11,11 @@ export default function Home() {
   const [fetchedBooks, setFetchedBooks] = useState();
   const [limit, setLimit] = useState(2);
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const fetchBooks = async () => {
     if (isLoading) return;
-    else setIsLoading(true);
+    setIsLoading(true);
 
     try {
       const response = await fetch(
@@ -32,23 +32,23 @@ export default function Home() {
       setIsLoading(false);
       if (errorMessage) setErrorMessage('');
 
-      let json;
-
       if (response.ok) {
-        json = await response.json();
+        const json = await response.json();
         setFetchedBooks(json.data);
+
+        if (!json.data.length)
+          setErrorMessage('Something went wrong. Please try again later.');
       } else if (response.status === 401) {
         navigate('/login');
       } else if (response.status === 429) {
         setErrorMessage(
           'You’re sending requests too quickly. Please wait and try again.'
         );
-      } else if (!response.ok || !json.data.length)
+      } else if (!response.ok)
         setErrorMessage('Something went wrong. Please try again later.');
-    } catch (err) {
+    } catch {
       setIsLoading(false);
       setErrorMessage('Something went wrong. Please try again later.');
-      console.error(err);
     }
   };
 
@@ -67,7 +67,7 @@ export default function Home() {
       >
         <div className='d-flex flex-column pb-2 align-items-center justify-content-center'>
           <label htmlFor='book-limit' className='form-label'>
-            Book quantity: <span className='text-body-secondary'>{limit}</span>
+            Book quantity: <span className='opacity-75'>{limit}</span>
           </label>
           <input
             type='range'
@@ -84,7 +84,7 @@ export default function Home() {
             name='refresh-btn'
             id='refresh-btn'
             value='Load books'
-            className='btn bg-primary text-white ps-5 pe-5 rounded-5'
+            className='btn ps-5 pe-5 rounded-5'
           />
         </div>
       </form>

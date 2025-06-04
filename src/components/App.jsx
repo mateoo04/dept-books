@@ -3,8 +3,9 @@ import Login from './LogIn';
 import ProtectedRoute from './ProtectedRoute';
 import Home from './Home';
 import { SavedBooksProvider } from '../context/SavedBooksContext';
-import Library from './LIbrary';
+import Library from './Library';
 import NotFound from './NotFound';
+import { ThemeProvider } from '../context/ThemeContext';
 
 const router = createBrowserRouter([
   { path: '/login', element: <Login /> },
@@ -24,9 +25,11 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <SavedBooksProvider>
-      <RouterProvider router={router} />
-    </SavedBooksProvider>
+    <ThemeProvider>
+      <SavedBooksProvider>
+        <RouterProvider router={router} />
+      </SavedBooksProvider>
+    </ThemeProvider>
   );
 }
 
