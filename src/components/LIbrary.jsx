@@ -6,21 +6,23 @@ export default function Library() {
 
   return (
     <main>
-      {savedBooks?.length
-        ? savedBooks.map((book) => {
-            return (
-              <div key={book.title} className='book'>
-                <div className='book-details'>
-                  <p className='book-title'>{book.title}</p>
-                  <p>{book.author}</p>
-                </div>
-                <button className='btn' onClick={() => removeBook(book)}>
-                  <img src={bookmarkFillImg} alt='' />
-                </button>
+      {savedBooks?.length ? (
+        savedBooks.map((book) => {
+          return (
+            <div key={book.title} className='book'>
+              <div className='book-details'>
+                <p className='book-title'>{book.title}</p>
+                <p>{book.author}</p>
               </div>
-            );
-          })
-        : 'Saved books will appear here!'}
+              <button className='btn ps-2' onClick={() => removeBook(book)}>
+                <img src={bookmarkFillImg} alt='' />
+              </button>
+            </div>
+          );
+        })
+      ) : (
+        <p className='text-center info-msg'>Saved books will appear here!</p>
+      )}
     </main>
   );
 }

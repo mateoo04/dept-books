@@ -11,6 +11,7 @@ export default function Home() {
   const [fetchedBooks, setFetchedBooks] = useState();
   const [limit, setLimit] = useState(2);
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(true);
 
   const fetchBooks = async () => {
     if (isLoading) return;
@@ -29,14 +30,24 @@ export default function Home() {
       );
 
       setIsLoading(false);
+      if (errorMessage) setErrorMessage('');
+
+      let json;
 
       if (response.ok) {
-        const json = await response.json();
+        json = await response.json();
         setFetchedBooks(json.data);
       } else if (response.status === 401) {
         navigate('/login');
-      }
+      } else if (response.status === 429) {
+        setErrorMessage(
+          'You’re sending requests too quickly. Please wait and try again.'
+        );
+      } else if (!response.ok || !json.data.length)
+        setErrorMessage('Something went wrong. Please try again later.');
     } catch (err) {
+      setIsLoading(false);
+      setErrorMessage('Something went wrong. Please try again later.');
       console.error(err);
     }
   };
@@ -77,7 +88,16 @@ export default function Home() {
           />
         </div>
       </form>
-      {!isLoading && fetchedBooks?.length ? (
+      {isLoading && (
+        <div className='loader-container'>
+          <span className='loader'></span>
+        </div>
+      )}
+      {!isLoading && errorMessage && (
+        <p className='error-msg text-center'>{errorMessage}</p>
+      )}
+      {!isLoading &&
+        fetchedBooks?.length &&
         fetchedBooks.map((book) => {
           return (
             <div key={book.title} className='book'>
@@ -86,22 +106,17 @@ export default function Home() {
                 <p>{book.author}</p>
               </div>
               {isBookSaved(book) ? (
-                <button className='btn' onClick={() => removeBook(book)}>
+                <button className='btn ps-2' onClick={() => removeBook(book)}>
                   <img src={bookmarkFillImg} alt='' />
                 </button>
               ) : (
-                <button className='btn' onClick={() => saveBook(book)}>
+                <button className='btn ps-2' onClick={() => saveBook(book)}>
                   <img src={bookmarkImg} alt='' />
                 </button>
               )}
             </div>
           );
-        })
-      ) : (
-        <div className='loader-container'>
-          <span className='loader'></span>
-        </div>
-      )}
+        })}
     </main>
   );
 }

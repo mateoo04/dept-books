@@ -43,7 +43,13 @@ export default function Login() {
 
   return (
     <main>
-      <h1 className='login-h1 text-center'>books</h1>
+      <header>
+        <h1 className='login-h1 text-center'>Bookly</h1>
+      </header>
+      <p className='pt-4 text-center'>
+        Discover random books, save your favorites and build your personal
+        library.
+      </p>
       <form
         onSubmit={(event) => handleSubmit(event)}
         className='login-form d-flex flex-column justify-content-center align-items-center gap-2'

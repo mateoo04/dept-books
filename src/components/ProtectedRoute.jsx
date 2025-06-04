@@ -22,7 +22,7 @@ export default function ProtectedRoute() {
     <>
       <header className='d-flex justify-content-between align-items-center mt-2 p-1'>
         <Link to={'/'} className='text-decoration-none'>
-          <h1>Books</h1>
+          <h1>Bookly</h1>
         </Link>
         <nav className='d-flex gap-3'>
           <Link
