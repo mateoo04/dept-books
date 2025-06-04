@@ -17,10 +17,7 @@ h1 {
 
 body {
   margin: 0;
-}
-
-header {
-  margin-top: 10px;
+  padding-bottom: 80px;
 }
 
 main {
@@ -28,6 +25,19 @@ main {
 }
 
 h1 {
+  text-transform: lowercase;
+}
+
+.login-h1 {
+  font-size: 4rem;
+}
+
+nav .link {
+  padding-top: 2px;
+}
+
+#refresh-btn,
+nav .link {
   text-transform: uppercase;
 }
 
@@ -38,6 +48,8 @@ h1 {
   margin: 8px 0;
   border-radius: 26px;
   padding: 4px 26px;
+  box-shadow: #424242;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
 }
 
 @media (max-width: 700px) {
@@ -51,8 +63,13 @@ h1 {
     margin: 0 10%;
   }
 
+  main {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
   .book {
-    margin: 8px 20px;
+    margin: 8px 0;
   }
 }
 
@@ -65,9 +82,17 @@ h1 {
   font-weight: 600;
 }
 
+.form-range {
+  max-width: 350px;
+}
+
 button {
   border: none !important;
   padding: 0 !important;
+}
+
+button img {
+  height: 20px;
 }
 
 button img:hover {
@@ -76,4 +101,60 @@ button img:hover {
 
 .link:hover {
   opacity: 0.85;
+}
+
+.loader {
+  display: inline-block;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  position: relative;
+  animation: rotate 1s linear infinite;
+}
+.loader::before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  inset: 0px;
+  border-radius: 50%;
+  border: 5px solid #424242;
+  animation: prixClipFix 2s linear infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes prixClipFix {
+  0% {
+    clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
+  }
+  25% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0);
+  }
+  50% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
+  }
+  75% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%);
+  }
+  100% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0);
+  }
+}
+
+.loader-container,
+.login-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.login-error {
+  background-color: #fa7121;
+  color: #fff;
+  padding: 10px 20px;
 }

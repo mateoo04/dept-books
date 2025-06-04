@@ -37,14 +37,20 @@ export default function Login() {
       }
     } catch (err) {
       console.error(err);
-      setFailureMessage('Failed to log in');
+      setFailureMessage('Incorrect email or password');
     }
   };
 
   return (
     <main>
-      {failureMessage && <p>{failureMessage}</p>}
-      <form onSubmit={(event) => handleSubmit(event)}>
+      <h1 className='login-h1 text-center'>books</h1>
+      <form
+        onSubmit={(event) => handleSubmit(event)}
+        className='login-form d-flex flex-column justify-content-center align-items-center gap-2'
+      >
+        {failureMessage && (
+          <p className='login-error rounded-5'>{failureMessage}</p>
+        )}
         <label htmlFor='email'>
           Email
           <input
@@ -53,6 +59,7 @@ export default function Login() {
             id='email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            className='form-control rounded-5'
             required
           />
         </label>
@@ -64,10 +71,15 @@ export default function Login() {
             id='password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className='form-control rounded-5'
             required
           />
         </label>
-        <input type='submit' value={'Log in'} />
+        <input
+          type='submit'
+          value={'Log in'}
+          className='btn bg-primary text-white rounded-5 ps-4 pe-4'
+        />
       </form>
     </main>
   );

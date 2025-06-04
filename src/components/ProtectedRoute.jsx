@@ -1,7 +1,15 @@
-import { Link, Navigate, Outlet, useLocation } from 'react-router-dom';
+import {
+  Link,
+  Navigate,
+  Outlet,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
+import logOutImg from '../assets/log-out.svg';
 
 export default function ProtectedRoute() {
   const location = useLocation().pathname;
+  const navigate = useNavigate();
 
   if (
     !localStorage.getItem('token') ||
@@ -9,12 +17,14 @@ export default function ProtectedRoute() {
   ) {
     return <Navigate to={'/login'} replace />;
   }
-  console.log(location);
+
   return (
     <>
-      <header className='d-flex justify-content-between align-items-center p-1'>
-        <h1>Books</h1>
-        <div className='d-flex gap-3'>
+      <header className='d-flex justify-content-between align-items-center mt-2 p-1'>
+        <Link to={'/'} className='text-decoration-none'>
+          <h1>Books</h1>
+        </Link>
+        <nav className='d-flex gap-3'>
           <Link
             className={`link ${
               location === '/'
@@ -26,7 +36,7 @@ export default function ProtectedRoute() {
             Home
           </Link>
           <Link
-            className={`link ${
+            className={`na link ${
               location === '/library'
                 ? 'text-decoration-underline'
                 : 'text-decoration-none'
@@ -35,7 +45,22 @@ export default function ProtectedRoute() {
           >
             Library
           </Link>
-        </div>
+          <button
+            className='log-out-btn btn p-0'
+            onClick={() => {
+              if (
+                confirm(
+                  'Are you sure you want to log out? Your saved books will be cleared.'
+                )
+              ) {
+                localStorage.clear();
+                navigate('/login');
+              }
+            }}
+          >
+            <img src={logOutImg} alt='' />
+          </button>
+        </nav>
       </header>
       <Outlet />
     </>
