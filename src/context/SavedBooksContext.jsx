@@ -33,9 +33,13 @@ export function SavedBooksProvider({ children }) {
     );
   };
 
+  const clearAllBooks = () => {
+    setSavedBooks([]);
+  };
+
   return (
     <SavedBooksContext.Provider
-      value={{ savedBooks, saveBook, removeBook, isBookSaved }}
+      value={{ savedBooks, saveBook, removeBook, isBookSaved, clearAllBooks }}
     >
       {children}
     </SavedBooksContext.Provider>

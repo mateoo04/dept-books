@@ -6,6 +6,7 @@ import { useSavedBooks } from '../context/SavedBooksContext';
 
 export default function Home() {
   const navigate = useNavigate();
+
   const { saveBook, removeBook, isBookSaved } = useSavedBooks();
 
   const [fetchedBooks, setFetchedBooks] = useState();

@@ -15,10 +15,6 @@ h1 {
   font-size: 2em;
 }
 
-.login-h1 {
-  font-size: 3.2em !important;
-}
-
 p,
 h1 {
   margin: 0 !important;
@@ -107,6 +103,31 @@ button img:hover {
   opacity: 0.85;
 }
 
+.loader-container,
+.login-form,
+.not-found-msg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.login-error {
+  background-color: #fa7121;
+  color: #fff;
+  padding: 10px 20px;
+}
+
+.error-msg,
+.info-msg {
+  padding-top: 10vh;
+}
+
+input[type='password'],
+input[type='email'] {
+  min-width: 240px;
+}
+
 .loader {
   display: inline-block;
   width: 44px;
@@ -147,24 +168,4 @@ button img:hover {
   100% {
     clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0);
   }
-}
-
-.loader-container,
-.login-form,
-.not-found-msg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.login-error {
-  background-color: #fa7121;
-  color: #fff;
-  padding: 10px 20px;
-}
-
-.error-msg,
-.info-msg {
-  padding-top: 10vh;
 }

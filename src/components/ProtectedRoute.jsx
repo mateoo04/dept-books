@@ -10,9 +10,12 @@ import logOutLightImg from '../assets/log-out-light.svg';
 import moonImg from '../assets/moon-fill.svg';
 import sunImg from '../assets/sun-fill.svg';
 import { useTheme } from '../context/ThemeContext';
+import { useSavedBooks } from '../context/SavedBooksContext';
 
 export default function ProtectedRoute() {
   const { theme, toggleTheme } = useTheme();
+
+  const { clearAllBooks } = useSavedBooks();
 
   const location = useLocation().pathname;
   const navigate = useNavigate();
@@ -25,12 +28,13 @@ export default function ProtectedRoute() {
     localStorage.removeItem('token');
     localStorage.removeItem('token_exp');
     localStorage.removeItem('savedBooks');
+    clearAllBooks();
     return <Navigate to={'/login'} replace />;
   }
 
   return (
     <>
-      <header className='d-flex justify-content-between align-items-center mt-2 p-1'>
+      <header className='d-flex justify-content-between align-items-center pt-2 p-1'>
         <Link to={'/'} className='text-decoration-none'>
           <h1>Bookly</h1>
         </Link>
@@ -66,6 +70,8 @@ export default function ProtectedRoute() {
                 localStorage.removeItem('token');
                 localStorage.removeItem('token_exp');
                 localStorage.removeItem('savedBooks');
+                clearAllBooks();
+
                 navigate('/login');
               }
             }}

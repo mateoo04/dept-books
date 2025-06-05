@@ -47,7 +47,7 @@ export default function Login() {
 
   return (
     <main>
-      <header className='d-flex justify-content-between align-items-center mt-2 p-1'>
+      <header className='d-flex justify-content-between align-items-center pt-2 p-1'>
         <h1>Bookly</h1>
         <button className='btn p-0' onClick={toggleTheme}>
           {theme === 'light' ? (
